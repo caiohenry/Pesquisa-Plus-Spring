@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+    ports:
+      - "5001:5432"
+    networks:
+      - pesquisa
+    environment:
+      - POSTGRES_USER=spring
+      - POSTGRES_PASSWORD=spring
+      - POSTGRES_DB=pesquisa_plus
+    volumes:
+      - /var/lib/postgres/data  
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    command: >
+      sh -c "mvn clean package && java -jar target/pesquisa_plus-0.0.1-SNAPSHOT.jar"
+    networks:
+      - pesquisa
+
+networks:
+  pesquisa:
+    name: pesquisa
+    external: true
