@@ -2,12 +2,16 @@ package br.com.pesquisa_plus.pesquisa_plus.usuario;
 
 // Importes necessários
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.pesquisa_plus.pesquisa_plus.usuario.dto.UsuarioAtualizarDTO;
 import br.com.pesquisa_plus.pesquisa_plus.usuario.dto.UsuarioCadastrarDTO;
 // import org.springframework.web.multipart.MultipartFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,12 +40,16 @@ public class UsuarioControlador {
     }
 
     // PUT - Método de atualizar usuário
-    @PostMapping("/atualizar/{id}/")
-    private ResponseEntity<?> usuarioAtualizar(@ModelAttribute UsuarioCadastrarDTO usuario) {
+    @PostMapping("/atualizar/{pk}/")
+    private ResponseEntity<?> usuarioAtualizar(@PathVariable Long pk, @ModelAttribute UsuarioAtualizarDTO usuario) {
         // @RequestParam("user_photo") MultipartFile photo
 
-        // TODO: Implementar atualizar 
-        return usuarioServico.usuarioCadastrar(usuario);
+        return usuarioServico.usuarioAtualizar(pk, usuario);
+    }
+
+    @DeleteMapping("/delete/{pk}")
+    private ResponseEntity<?> deleteUser(@PathVariable long pk) {
+        return usuarioServico.deleteUser(pk);
     }
 
 }

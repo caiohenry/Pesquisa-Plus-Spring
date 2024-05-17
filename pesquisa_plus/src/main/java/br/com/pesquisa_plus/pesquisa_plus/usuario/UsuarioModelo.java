@@ -10,6 +10,9 @@ import lombok.Setter;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import java.util.Collection;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 // Anotações para o modelo
 @Entity
@@ -17,7 +20,7 @@ import jakarta.persistence.Id;
 @Getter
 @Setter
 // Classe modelo para a entidade Usuário
-public class UsuarioModelo {
+public class UsuarioModelo implements UserDetails {
 
     // ID do usuário ( Primary Key )
     @Id
@@ -58,5 +61,46 @@ public class UsuarioModelo {
     @Column(name = "tipo_usuario", nullable = false, unique = false)
     @JsonProperty("tipo_usuario")
     private Integer tipo;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+
     
 }
