@@ -14,12 +14,12 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-// Anotações para o modelo
+// Annotations for the model
 @Entity
 @Table(name = "usuario")
 @Getter
 @Setter
-// Classe modelo para a entidade Usuário
+// Class model for the User entity
 public class UsuarioModelo implements UserDetails {
 
     // ID do usuário ( Primary Key )

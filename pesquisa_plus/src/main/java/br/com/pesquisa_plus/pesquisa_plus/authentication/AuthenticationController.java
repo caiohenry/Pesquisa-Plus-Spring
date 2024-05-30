@@ -25,6 +25,7 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+    
     @PostMapping("/token-auth/")
     public ResponseEntity<TokenModel> login(@RequestBody AuthenticationModel body) {
 
