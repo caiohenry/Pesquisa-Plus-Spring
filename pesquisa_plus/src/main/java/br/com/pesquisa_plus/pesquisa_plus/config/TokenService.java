@@ -2,10 +2,15 @@ package br.com.pesquisa_plus.pesquisa_plus.config;
 
 
 
+import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -14,6 +19,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
 import br.com.pesquisa_plus.pesquisa_plus.usuario.UsuarioModelo;
+import br.com.pesquisa_plus.pesquisa_plus.usuario.UsuarioRepositorio;
 
 
 
@@ -21,19 +27,28 @@ import br.com.pesquisa_plus.pesquisa_plus.usuario.UsuarioModelo;
 public class TokenService {
 
     private String secret = "spring-acessif-token";
+
+    @Autowired
+    private UsuarioRepositorio usuarioRepositorio;
     
-    public String generateToken(UsuarioModelo user) {
+    public String generateToken(UsuarioModelo user, Integer exp) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                                 .withIssuer("auth-api")
                                 .withSubject(user.getEmail())
-                                .withExpiresAt(generateExpirationDate())
+                                .withExpiresAt(generateExpirationDate(exp))
                                 .sign(algorithm);
             return token;
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro ao criar o token", exception);
         }
+    }
+
+    public UsuarioModelo generateRefreshToken(String refresh) {
+        String login = validadeToken(refresh);
+        UsuarioModelo usuario = usuarioRepositorio.findByEmail(login);
+        return usuario;
     }
 
     public String validadeToken(String token) {
@@ -50,7 +65,7 @@ public class TokenService {
         }
     }
 
-    private Instant generateExpirationDate() {
-        return LocalDateTime.now().plusHours(12).toInstant(ZoneOffset.of("-03:00"));
+    private Instant generateExpirationDate(Integer exp) {
+        return LocalDateTime.now().plusHours(exp).toInstant(ZoneOffset.of("-03:00"));
     }
 }
