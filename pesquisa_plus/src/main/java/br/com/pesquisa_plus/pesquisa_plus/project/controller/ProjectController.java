@@ -1,56 +1,68 @@
 package br.com.pesquisa_plus.pesquisa_plus.project.controller;
 
-// Importes necessários
+// Imports
 import org.springframework.web.bind.annotation.RestController;
-
 import br.com.pesquisa_plus.pesquisa_plus.project.dto.ProjectDTO;
+import br.com.pesquisa_plus.pesquisa_plus.project.dto.ProjectListDTO;
 import br.com.pesquisa_plus.pesquisa_plus.project.service.ProjectService;
-import br.com.pesquisa_plus.pesquisa_plus.usuario.dto.UsuarioAtualizarDTO;
-import br.com.pesquisa_plus.pesquisa_plus.usuario.dto.UsuarioCadastrarDTO;
-// import org.springframework.web.multipart.MultipartFile;
+import br.com.pesquisa_plus.pesquisa_plus.shared.dto.ListPageableDTO;
+import br.com.pesquisa_plus.pesquisa_plus.shared.dto.PageableDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-// Anotações para o controlador
+// Annotations for the controller
 @RestController
 @RequestMapping(value = "/project")
-// Classe de acesso entre serviço e Usuário
+// User access interface
 public class ProjectController {
 
     // Add dependencies
     @Autowired
     private ProjectService projectService;
 
-    // GET - Método de listar usuários
-    @GetMapping("/")
-    private ResponseEntity<?> projectList() {
-        return projectService.projectList();
+    // POST - Method List of Project
+    @PostMapping("/")
+    private PageableDTO<ProjectListDTO> projectList(@RequestBody ListPageableDTO dto) {
+
+        // Return the project list service
+        return projectService.projectList(dto.page(), dto.sortField(), dto.sortOrder(), dto.filters());
     }
 
-    // POST - Método de cadastrar usuário
+    // GET - Method Detail of Project
+    @GetMapping("/{pk}/")
+    private ResponseEntity<?> projectDetail(@PathVariable Long pk) {
+
+        // Return the project detail service
+        return projectService.projectDetail(pk);
+    }
+
+    // POST - Method Create of Project
     @PostMapping("/create/")
     private ResponseEntity<?> projectCreate(@RequestBody ProjectDTO project) {
+
+        // Return the project create service
         return projectService.projectCreate(project);
     }
 
-    // PUT - Método de atualizar usuário
+    // PUT - Method Update of Project
     @PostMapping("/update/{pk}/")
     private ResponseEntity<?> projectUpdate(@PathVariable Long pk, @RequestBody ProjectDTO usuario) {
-        // @RequestParam("user_photo") MultipartFile photo
 
+        // Return the project update service
         return projectService.projectUpdate(pk, usuario);
     }
 
-    @DeleteMapping("/delete/{pk}")
+    // DELETE - Method Delete of Project
+    @DeleteMapping("/delete/{pk}/")
     private ResponseEntity<?> projectDelete(@PathVariable long pk) {
+
+        // Return the project delete service
         return projectService.projectDelete(pk);
     }
 

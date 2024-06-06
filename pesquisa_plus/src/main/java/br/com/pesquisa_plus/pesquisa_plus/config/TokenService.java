@@ -2,15 +2,12 @@ package br.com.pesquisa_plus.pesquisa_plus.config;
 
 
 
-import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -66,6 +63,6 @@ public class TokenService {
     }
 
     private Instant generateExpirationDate(Integer exp) {
-        return LocalDateTime.now().plusHours(exp).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusSeconds(exp).toInstant(ZoneOffset.of("-03:00"));
     }
 }

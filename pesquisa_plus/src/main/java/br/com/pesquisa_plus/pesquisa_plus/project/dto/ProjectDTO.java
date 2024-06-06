@@ -1,13 +1,15 @@
 package br.com.pesquisa_plus.pesquisa_plus.project.dto;
 
+// Imports
 import java.math.BigDecimal;
-
 import br.com.pesquisa_plus.pesquisa_plus.project.models.ProjectModel;
 import lombok.Data;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
-// Annotations for the DTO
+// Annotations for the dto
 @Data
-// Classe Dto responsável pela exibição de dados do usuário
+// Class ProjectDTO for the project create and update operations
 public class ProjectDTO {
 
     // ID of Project
@@ -22,19 +24,36 @@ public class ProjectDTO {
     // Duration of Project
     private Integer duration_project;
 
-    // Método que converte o Modelo para o DTO usuário
-    public void converteModeloParaDto(ProjectModel project) {
+    // Description of Project
+    private String description_project;
+
+    // Start Date of Project
+    private LocalDate start_date_project;
+
+    // Final Date of Project
+    private LocalDate final_date_project;
+
+    // Method that converts the Model to the project DTO
+    public void convertModelToDto(ProjectModel project) {
         id = project.getId();
         name_project = project.getName();
         value_project = project.getValue();
         duration_project = project.getDuration();
+        description_project = project.getDescription();
+        start_date_project = project.getStartDate();
+        final_date_project = project.getFinalDate();
     }
 
-    public ProjectModel converteDtoParaModelo() {
+    // Method that converts the DTO to the project Model
+    public ProjectModel convertDtoToModel() {
         ProjectModel project = new ProjectModel();
         project.setName(name_project);
         project.setValue(value_project);
         project.setDuration(duration_project);
+        project.setDescription(description_project);
+        project.setStartDate(start_date_project);
+        project.setFinalDate(final_date_project);
+        project.setExpectedFinalDate(start_date_project.plus(2, ChronoUnit.MONTHS));
         return project;
     }
     

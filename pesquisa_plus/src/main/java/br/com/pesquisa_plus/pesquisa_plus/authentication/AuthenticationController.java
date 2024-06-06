@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.pesquisa_plus.pesquisa_plus.config.TokenService;
-import br.com.pesquisa_plus.pesquisa_plus.dto.RespostaDTO;
+import br.com.pesquisa_plus.pesquisa_plus.shared.dto.RespostaDTO;
 import br.com.pesquisa_plus.pesquisa_plus.usuario.UsuarioModelo;
 
 @RestController
@@ -29,14 +29,13 @@ public class AuthenticationController {
     @PostMapping("/token-auth/")
     public ResponseEntity<TokenModel> login(@RequestBody AuthenticationModel body) {
 
-        System.out.println(body.getEmail());
 
         var usernamePassword = new UsernamePasswordAuthenticationToken(body.getEmail(), body.getSenha());
         
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        var token = tokenService.generateToken((UsuarioModelo) auth.getPrincipal(), 12);
-        var refresh = tokenService.generateToken((UsuarioModelo) auth.getPrincipal(), 20);
+        var token = tokenService.generateToken((UsuarioModelo) auth.getPrincipal(), 30);
+        var refresh = tokenService.generateToken((UsuarioModelo) auth.getPrincipal(), 300000);
 
         TokenModel tokenAccess = new TokenModel(token, refresh);
 
@@ -56,10 +55,8 @@ public class AuthenticationController {
 
         // var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        var token = tokenService.generateToken((UsuarioModelo) usuario, 12);
-        var refresh = tokenService.generateToken((UsuarioModelo) usuario, 20);
-
-        System.out.println(token);
+        var token = tokenService.generateToken((UsuarioModelo) usuario, 30);
+        var refresh = tokenService.generateToken((UsuarioModelo) usuario, 3600);
 
         TokenModel tokenAccess = new TokenModel(token, refresh);
 

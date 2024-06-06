@@ -3,7 +3,8 @@ package br.com.pesquisa_plus.pesquisa_plus.usuario;
 // Importes necessários
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import br.com.pesquisa_plus.pesquisa_plus.dto.RespostaDTO;
+
+import br.com.pesquisa_plus.pesquisa_plus.shared.dto.RespostaDTO;
 import br.com.pesquisa_plus.pesquisa_plus.usuario.dto.UsuarioAtualizarDTO;
 import br.com.pesquisa_plus.pesquisa_plus.usuario.dto.UsuarioCadastrarDTO;
 import br.com.pesquisa_plus.pesquisa_plus.usuario.dto.UsuarioListarDTO;
