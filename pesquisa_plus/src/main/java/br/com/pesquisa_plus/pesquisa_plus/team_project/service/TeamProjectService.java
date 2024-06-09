@@ -4,8 +4,8 @@ package br.com.pesquisa_plus.pesquisa_plus.team_project.service;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import br.com.pesquisa_plus.pesquisa_plus.project.models.ProjectModel;
-import br.com.pesquisa_plus.pesquisa_plus.project.repository.ProjectRepository;
+import br.com.pesquisa_plus.pesquisa_plus.apps.project.models.ProjectModel;
+import br.com.pesquisa_plus.pesquisa_plus.apps.project.repository.ProjectRepository;
 import br.com.pesquisa_plus.pesquisa_plus.shared.dto.RespostaDTO;
 import br.com.pesquisa_plus.pesquisa_plus.team_project.dto.TeamProjecCreatetDTO;
 import br.com.pesquisa_plus.pesquisa_plus.team_project.models.TeamProjectModel;

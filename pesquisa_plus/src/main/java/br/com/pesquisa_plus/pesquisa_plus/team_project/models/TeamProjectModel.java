@@ -2,7 +2,7 @@ package br.com.pesquisa_plus.pesquisa_plus.team_project.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import br.com.pesquisa_plus.pesquisa_plus.project.models.ProjectModel;
+import br.com.pesquisa_plus.pesquisa_plus.apps.project.models.ProjectModel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

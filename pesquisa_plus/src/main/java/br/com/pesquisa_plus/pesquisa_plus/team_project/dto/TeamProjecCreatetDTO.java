@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.pesquisa_plus.pesquisa_plus.project.models.ProjectModel;
-import br.com.pesquisa_plus.pesquisa_plus.project.repository.ProjectRepository;
+import br.com.pesquisa_plus.pesquisa_plus.apps.project.models.ProjectModel;
+import br.com.pesquisa_plus.pesquisa_plus.apps.project.repository.ProjectRepository;
 import br.com.pesquisa_plus.pesquisa_plus.team_project.models.TeamProjectModel;
 import lombok.Data;
 
